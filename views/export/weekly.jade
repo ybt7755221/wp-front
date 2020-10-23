@@ -1,0 +1,47 @@
+extends export_layout
+block content
+  #export
+    - var n = 1
+    ul.nav.nav-pills
+      while n < 4
+        - var i = n++
+        if defWeek == i
+          li.presentation.active
+            a(href="/export/priWeekly?week=#{i}") 
+              if i == 1
+                上周
+              else if i == 2
+                本周
+              else 
+                下周
+        else
+          li.presentation
+            a(href="/export/priWeekly?week=#{i}")
+              if i == 1
+                上周
+              else if i == 2
+                本周
+              else 
+                下周
+    hr
+    pre.row
+      if list != null
+        if defWeek == 1 
+          p.col-md-12 上周:
+        else if defWeek == 2
+          p.col-md-12 本周:
+        else 
+          p.col-md-12 下周:
+        br
+        each value, key in list
+          p.col-md-12 #{key}:
+          br
+          each item, idx in value
+            p.col-md-8 &nbsp;&nbsp;&nbsp;#{idx+1+'.'+item['title']}&nbsp;&nbsp;&nbsp;&nbsp;
+            p.col-md-4 完成度：#{item['progress']}%
+            br
+            if item['url'] != ""
+              p.col-md-12 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;禅道地址：#{item['url']}
+              br
+      else 
+        没有数据

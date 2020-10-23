@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .container
+    h1.text-center= title
+    br
+    .form
+    form(name='login' id="login" action="/users/login", method="post")
+      .from-inline
+        .input-group
+          .input-group-addon 邮箱
+          input(id="emailInput" type="email", class="form-control" name="email")
+      br
+      .from-inline
+        .input-group
+          .input-group-addon 密码
+          input(id="passwordInput" type="password", class="form-control" name="password")
+      p.center-button
+        button(class="btn btn-default" type="submit") 登陆
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        a(class="btn btn-default" href="/register") 注册

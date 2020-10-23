@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  .container
+    h1.text-center= title
+    br
+    .form
+    form(name='register' id="register" action="/create", method="post")
+      .from-inline
+        .input-group
+          .input-group-addon 姓名
+          input(type="text", class="form-control" name="username")
+      br
+      .from-inline
+        .input-group
+          .input-group-addon 邮箱
+          input(type="email", class="form-control" name="email")
+      br
+      .from-inline
+        .input-group
+          .input-group-addon 密码
+          input(type="password", class="form-control" name="password")
+      br
+      .from-inline
+        .input-group
+          .input-group-addon 手机号
+          input(type="text", class="form-control" name="mobile")
+      p.center-button
+        button(class="btn btn-default" type="submit") 注册
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        a(class="btn btn-default" href="/") 返回登陆

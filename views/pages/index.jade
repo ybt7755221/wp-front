@@ -1,0 +1,39 @@
+extends page_layout
+
+block content
+  .container.table-responsive
+    p
+    .row
+      p.col-md-4
+      p.col-md-8.text-right
+        a(class="btn btn-primary btn-sm" href="/pages/create") 创建工作任务
+        a(class="btn btn-primary btn-sm" href="/export/priDaily") 个人日报
+        a(class="btn btn-primary btn-sm" href="/export/priWeekly") 个人周报
+        a(class="btn btn-primary btn-sm" href="/export/proDaily") 项目日报
+        a(class="btn btn-primary btn-sm" href="/export/proWeekly") 项目周报
+    table.table
+      tr.success
+        td 所属项目
+        td 任务名称
+        td 工作进度
+        td 使用技术
+        td 备注
+        td 开始时间
+        td 更新时间
+        td 操作
+      if list != null  
+        each item in list
+          tr(id="work_#{item.id}")
+            td #{plist[item.project_id]} 
+            td #{item.title}
+            td #{item.progress}%
+            td 
+              if item.work_type == 1
+                前端
+              else 
+                后端
+            td #{item.backup}
+            td #{item.created}
+            td #{item.updated.split(' ')[0]}
+            td
+              a(href="#" onclick="delWork(#{item.id})") 删除

@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
+    link(rel="stylesheet", href="/stylesheets/bootstrap-datetimepicker.min.css")
+    link(rel="stylesheet", href="/stylesheets/select2.min.css")
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/bootstrap.min.js')  
+    script(src='/javascripts/bootstrap-datetimepicker.min.js')  
+    script(src='/javascripts/select2.min.js')
+    script(src='/javascripts/export.js')
+  body
+    .row.banner
+      .col-md-2 
+        a(href="/pages/") Work Report System
+      .col-md-6
+      .col-md-4.text-center 欢迎，#{userinfo.username}（#{userinfo.email}）
+        input(type="hidden" id="LoginUserId" readonly="readonly" name="userID", value="#{userinfo.id}")
+        a(href="/users/logout") logout
+    p
+    .row.export-layout
+      p.col-md-4
+      p.col-md-8.text-right
+        a(class="btn btn-primary btn-sm" href="/export/priDaily") 个人日报
+        a(class="btn btn-primary btn-sm" href="/export/priWeekly") 个人周报
+        a(class="btn btn-primary btn-sm" href="/export/proDaily") 项目日报
+        a(class="btn btn-primary btn-sm" href="/export/proWeekly") 项目周报
+        a(class="btn btn-primary btn-sm" href="/pages") 返回列表
+    block content

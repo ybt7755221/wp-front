@@ -1,0 +1,64 @@
+extends page_layout
+block content
+  .container.table-responsive.text-center
+    table#table.table
+      tr
+        td 所属项目
+        td 技术类型
+        td 任务名称
+        td url地址
+        td 工作进度
+        td 备注
+        td 开始时间
+        td 操作
+
+    form(name='work' id="work" action="/pages/save" method="post" class="row")
+        .from-inline.col-md-12
+          .input-group
+            .input-group-addon 
+              pub.text-red* 
+              span 任务名称
+            input(type="text", class="form-control" name="title")
+        .height-10
+        .from-inline.col-md-4
+          .input-group
+            .input-group-addon 
+              pub.text-red* 
+              span 所属项目
+            select#project_id(name="project_id" class="form-control")
+              option(value="") 请选择项目
+              each item in projectList
+                option(value="#{item.id}") #{item.project_name}
+        .from-inline.col-md-5
+          .input-group
+            .input-group-addon 
+              pub.text-red* 
+              span 任务时间
+            input(id="start_id" placeholder="请选择时间" autocomplete="off" type="select", class="form-control" name="created")
+        .from-inline.col-md-3
+          .input-group
+            .input-group-addon 技术
+            select#work_type(name="work_type" class="form-control")
+              option(value="1") 前端
+              option(value="2") 后端
+        .height-10
+        .from-inline.col-md-9
+          .input-group
+            .input-group-addon url地址
+            input(type="text", class="form-control" name="url")
+        .from-inline.col-md-3
+          .input-group
+            .input-group-addon 进度
+            select#progress(name="progress" class="form-control")
+              - var n = 0
+              while n < 101
+                - var i = n++
+                option(value="#{i}") #{i}%
+        .height-10
+        .from-inline.col-md-12
+          .input-group
+            .input-group-addon 备注
+            textarea(class="form-control" name="backup" ) --
+        .center-button.col-md-12
+          button(class="btn btn-default" type="button" id="submit") 提交
+          a(class="btn btn-default" href="javascript:location.href=/pages/") 返回

@@ -1,0 +1,47 @@
+extends export_layout
+block content
+  #export
+    - var n = 1
+    ul.nav.nav-pills
+      while n < 4
+        - var i = n++
+        if defDay == i
+          li.presentation.active
+            a(href="/export/proDaily?day=#{i}") 
+              if i == 1
+                昨天
+              else if i == 2
+                今天
+              else 
+                明天
+        else
+          li.presentation
+            a(href="/export/proDaily?day=#{i}")
+              if i == 1
+                昨天
+              else if i == 2
+                今天
+              else 
+                明天
+    hr
+    pre.row
+      if list != null
+        if defDay == 1 
+          p.col-md-12 昨天:
+        else if defDay == 2
+          p.col-md-12 今天:
+        else 
+          p.col-md-12 明天:
+        br
+        each value, key in list
+          p.col-md-12 #{key}:
+          br
+          each item, idx in value
+            p.col-md-8 &nbsp;&nbsp;&nbsp;#{idx+1+'.'+item['title']} 
+            p.col-md-4 完成度：#{item['progress']}%
+            br
+            if item['url'] != ""
+              p.col-md-12 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;禅道地址：#{item['url']}
+              br
+      else 
+        没有数据
