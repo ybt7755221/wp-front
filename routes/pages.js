@@ -63,7 +63,10 @@ router.get('/create', function(req, res, next){
   request({
     timeout:5000, // 设置超时
     method:'GET', //请求方式
-    url: project_url
+    url: project_url,
+    qs:{
+      'sort':JSON.stringify({"id":"desc"})
+    }
   },function (error, response, body) {
       if (!error && response.statusCode == 200) {
           var bodyJson = JSON.parse(body)
