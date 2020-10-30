@@ -1,10 +1,11 @@
 var express = require('express');
 var request = require('request');
 var router = express.Router();
-const work_url = 'http://localhost:8989/work/';
-const project_url = 'http://localhost:8989/project/';
+var tools = require('./common')
+const work_url = tools.GoUrl.workUrl;
+const project_url = tools.GoUrl.projectUrl;
 var plist = {}
-var workTypeList={1:"前端", 2:"后端"}
+var workTypeList=tools.WorkType
 router.all('*', function(req, res, next) {
     if(!req.session.userInfo){  /*获取*/
       res.redirect('/')

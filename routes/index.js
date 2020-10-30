@@ -2,8 +2,8 @@ var express = require('express');
 var request = require('request');
 var crypto = require('crypto');
 var router = express.Router();
-const user_url = 'http://localhost:8989/user/'
-
+var tools = require('./common')
+const user_url = tools.GoUrl.userUrl
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Work Report System' });

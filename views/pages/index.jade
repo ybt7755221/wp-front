@@ -27,11 +27,7 @@ block content
             td #{plist[item.project_id]} 
             td #{item.title}
             td #{item.progress}%
-            td 
-              if item.work_type == 1
-                前端
-              else 
-                后端
+            td #{workTypeList[item.work_type]}
             td #{item.backup}
             td #{item.created}
             td #{item.updated.split(' ')[0]}

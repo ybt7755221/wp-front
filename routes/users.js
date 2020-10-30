@@ -3,7 +3,7 @@ const session = require('express-session');
 var request = require('request');
 const { runInNewContext } = require('vm');
 var router = express.Router();
-
+var tools = require('./common')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -15,7 +15,7 @@ router.get('/logout', function(req, res, next) {
 });
 router.post('/login', function(req, res, next) {
   request.post(
-    'http://localhost:8989/check',
+    tools.GoUrl.baseUrl+'check',
     { form: req.body },
     function (error, response, body) {
       if (!error && response.statusCode == 200) {

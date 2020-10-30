@@ -6,7 +6,7 @@ module.exports.WorkType = {
 }
 module.exports.GoUrl = {
     baseUrl: baseUrl,
-    workUrl : baseUrl + 'work',
-    projectUrl : baseUrl + 'project',
-    userUrl : baseUrl + 'user',
+    workUrl : baseUrl + 'work/',
+    projectUrl : baseUrl + 'project/',
+    userUrl : baseUrl + 'user/',
 }

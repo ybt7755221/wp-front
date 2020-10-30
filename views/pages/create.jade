@@ -39,8 +39,8 @@ block content
           .input-group
             .input-group-addon 技术
             select#work_type(name="work_type" class="form-control")
-              option(value="1") 前端
-              option(value="2") 后端
+              each value, key in workTypeList
+                option(value="#{key}") #{value}
         .height-10
         .from-inline.col-md-9
           .input-group

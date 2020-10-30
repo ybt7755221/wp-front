@@ -1,8 +1,9 @@
 var express = require('express');
 var request = require('request');
 var router = express.Router();
-const work_url = 'http://localhost:8989/work/';
-const project_url = 'http://localhost:8989/project/'
+var tools = require('./common')
+const work_url = tools.GoUrl.workUrl;
+const project_url = tools.GoUrl.projectUrl;
 
 router.all('*', function(req, res, next) {
   if(!req.session.userInfo){  /*获取*/
@@ -42,6 +43,7 @@ router.get('/', function(req, res, next) {
                         res.render('pages/index',{
                           userinfo : req.session.userInfo,
                           list : workJson.data,
+                          workTypeList: tools.WorkType,
                           plist: plist
                         })
                       }else{
@@ -73,6 +75,7 @@ router.get('/create', function(req, res, next){
           if (bodyJson.code == 1000) {
             res.render('pages/create',{
               userinfo : req.session.userInfo,
+              workTypeList : tools.WorkType,
               projectList : bodyJson.data
             })
           }else{
