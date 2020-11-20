@@ -7,22 +7,20 @@ block content
         - var i = n++
         if defDay == i
           li.presentation.active
-            a(href="/export/priDaily?day=#{i}") 
-              if i == 1
-                昨天
-              else if i == 2
-                今天
-              else 
-                明天
+            if i == 1
+              a(href="/export/priDaily?day=#{i}")  昨天
+            else if i == 2
+              a(href="/export/priDaily?day=#{i}")  今天
+            else 
+              a(href="/export/priDaily?day=#{i}")  明天
         else
           li.presentation
-            a(href="/export/priDaily?day=#{i}")
-              if i == 1
-                昨天
-              else if i == 2
-                今天
-              else 
-                明天
+            if i == 1
+              a(href="/export/priDaily?day=#{i}") 昨天
+            else if i == 2
+              a(href="/export/priDaily?day=#{i}") 今天
+            else 
+              a(href="/export/priDaily?day=#{i}") 明天
     hr
     pre.row
       if list != null
@@ -44,4 +42,4 @@ block content
               p.col-md-12 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;禅道地址：#{item['url']}
               br
       else 
-        没有数据
+        p 没有数据
