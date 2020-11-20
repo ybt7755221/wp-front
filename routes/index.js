@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/test', async function(req, res, next){
-  let resp = await etools.http_request(user_url,{},'GET')
+  let resp = await etools.http_request(user_url,{id:1},'GET')
   res.send(resp);
 });
 

@@ -11,7 +11,7 @@ router.all('*', async function(req, res, next) {
     if(!req.session.userInfo){  /*获取*/
       res.redirect('/')
     }
-    let resp = await etools.http_request(project_url, {}, 'GET');
+    let resp = await http_request(project_url, null, 'GET');
     if (resp['error'] == null && resp['data'].statusCode == 200) {
         var bodyJson = etools.s2j(resp['data'].body)
         if (bodyJson.code == 1000) {
@@ -44,7 +44,7 @@ router.get('/priDaily', async function(req, res, next){
     }else if(defDay == 3) {
         selectDay = new Date(new Date().getTime() + 1000 * 60 * 60 * 24).Format("yyyy-MM-dd")
     }
-    let resp = await etools.http_request(work_url, {
+    let resp = await http_request(work_url, {
         'user_id': req.session.userInfo.id,
         'created': selectDay,
         'page_num': 1,
@@ -124,7 +124,7 @@ router.get('/priWeekly', async function(req, res, next){
     }
 })
 
-router.get('/proDaily', function(req, res, next){
+router.get('/proDaily', async function(req, res, next){
     var defDay = req.query['day'] ? req.query['day'] : 2
     var selectDay = new Date(new Date().getTime()).Format("yyyy-MM-dd")
     if (defDay == 1) {
@@ -132,94 +132,82 @@ router.get('/proDaily', function(req, res, next){
     }else if(defDay == 3) {
         selectDay = new Date(new Date().getTime() + 1000 * 60 * 60 * 24).Format("yyyy-MM-dd")
     }
-    request({
-        timeout:5000, //设置超时
-        method:'GET', //请求方式
-        url: work_url,
-        qs:{
-            'created': selectDay,
-            'page_num': 1,
-            'page_size': 1000,
-            'sort':JSON.stringify({"work_type":"asc", "id":"desc"})
-        }
-      },function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-              var workJson = JSON.parse(body)
-              if (workJson.code == 1000) {
-                if (workJson.data == null) {
-                    res.render('export/proDaily',{
-                        userinfo : req.session.userInfo,
-                        defDay: defDay,
-                        list : null
-                    })
-                }else{
-                    var wList = {}
-                    workJson.data.forEach((item)=>{
-                        const arr = wList[workTypeList[item['work_type']]]
-                        if (Object.prototype.toString.call(arr) !== '[object Array]') {
-                            wList[workTypeList[item['work_type']]] = []
-                        }
-                        wList[workTypeList[item['work_type']]].push(item)
-                    })
-                    res.render('export/proDaily',{
-                        userinfo : req.session.userInfo,
-                        defDay: defDay,
-                        list : wList
-                    })
-                }
-              }else{
-                res.send(workJson.msg)
-              }
+    let resp = await http_request(work_url, {
+        'created': selectDay,
+        'page_num': 1,
+        'page_size': 1000,
+        'sort':etools.j2s({"work_type":"asc", "id":"desc"})
+    }, 'GET');
+    if (resp['error'] == null && resp['data'].statusCode == 200) {
+        var workJson = etools.s2j(resp['data'].body)
+        if (workJson.code == 1000) {
+          if (workJson.data == null) {
+              res.render('export/proDaily',{
+                  userinfo : req.session.userInfo,
+                  defDay: defDay,
+                  list : null
+              })
           }else{
-              res.send(error)
+              var wList = {}
+              workJson.data.forEach((item)=>{
+                  const arr = wList[workTypeList[item['work_type']]]
+                  if (Object.prototype.toString.call(arr) !== '[object Array]') {
+                      wList[workTypeList[item['work_type']]] = []
+                  }
+                  wList[workTypeList[item['work_type']]].push(item)
+              })
+              res.render('export/proDaily',{
+                  userinfo : req.session.userInfo,
+                  defDay: defDay,
+                  list : wList
+              })
           }
-      });
+        }else{
+          res.send(workJson.msg)
+        }
+    }else{
+        res.send(error)
+    }
 })
 
-router.get('/proWeekly', function(req,res, next){
+router.get('/proWeekly', async function(req,res, next){
     var defWeek =  req.query['week'] ? req.query['week'] : 2
-    request({
-        timeout:5000, // 设置超时
-        method:'GET', //请求方式
-        url: work_url+'weekly',
-        qs:{
-            'page_num': 1,
-            'page_size': 1000,
-            'weekly_type' : defWeek,
-            'sort':JSON.stringify({"work_type":"asc", "id":"desc"})
-        }
-      },function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-              var workJson = JSON.parse(body)
-              if (workJson.code == 1000) {
-                if (workJson.data == null) {
-                    res.render('export/proWeekly',{
-                        userinfo : req.session.userInfo,
-                        defWeek: defWeek,
-                        list : null
-                    })
-                }else{
-                    var wList = {}
-                    workJson.data.forEach((item)=>{
-                        const arr = wList[workTypeList[item['work_type']]]
-                        if (Object.prototype.toString.call(arr) !== '[object Array]') {
-                            wList[workTypeList[item['work_type']]] = []
-                        }
-                        wList[workTypeList[item['work_type']]].push(item)
-                    })
-                    res.render('export/proWeekly',{
-                        userinfo : req.session.userInfo,
-                        defWeek: defWeek,
-                        list : wList
-                    })
-                }
-              }else{
-                res.send(workJson.msg)
-              }
+    let resp = await http_request(work_url+'weekly', {
+        'page_num': 1,
+        'page_size': 1000,
+        'weekly_type' : defWeek,
+        'sort':etools.j2s({"work_type":"asc", "id":"desc"})
+    }, 'GET');
+    if (resp['error'] == null && resp['data'].statusCode == 200) {
+        var workJson = etools.s2j(resp['data'].body)
+        if (workJson.code == 1000) {
+          if (workJson.data == null) {
+              res.render('export/proWeekly',{
+                  userinfo : req.session.userInfo,
+                  defWeek: defWeek,
+                  list : null
+              })
           }else{
-              res.send(error)
+              var wList = {}
+              workJson.data.forEach((item)=>{
+                  const arr = wList[workTypeList[item['work_type']]]
+                  if (Object.prototype.toString.call(arr) !== '[object Array]') {
+                      wList[workTypeList[item['work_type']]] = []
+                  }
+                  wList[workTypeList[item['work_type']]].push(item)
+              })
+              res.render('export/proWeekly',{
+                  userinfo : req.session.userInfo,
+                  defWeek: defWeek,
+                  list : wList
+              })
           }
-      });
+        }else{
+          res.send(workJson.msg)
+        }
+    }else{
+        res.send(error)
+    }
 })
 
 module.exports = router;
@@ -238,5 +226,3 @@ Date.prototype.Format = function(fmt) { //author: meizz
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
-    
-    

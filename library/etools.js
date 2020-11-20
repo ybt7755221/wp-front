@@ -3,6 +3,7 @@ let request = require('async-request'),
     response;
 var crypto = require('crypto');
 var _ = require('lodash');
+const { param } = require('../routes');
 module.exports = {
   /**
    * return the success data.
@@ -45,12 +46,13 @@ module.exports = {
     return JSON.parse(string);
   },
   'http_request' : async (url, data, method) => {
-      let error = '';
-    try{
+    console.log(method)
+    if (method == "POST") {
+      try{
         response = await request(url, {
             // This example demonstrates all of the supported options.
             // Request method (uppercase): POST, DELETE, ...
-            method: method,
+            method: "POST",
             data: data,
             //headers: {},
             //proxy: 'http://127.0.0.1:8000',
@@ -63,6 +65,21 @@ module.exports = {
       }catch(e) {
         return {data: response, error: e}
       }
-      return {data: response, error: null}
+    }else{
+      let params = '';
+      if (data != null) {
+        params += '?';
+       _.forEach(data, (value, key) => {
+         params += key +'='+value+'&';
+       })
+      }
+      console.log(params)
+      try{
+        response = await request(url+params);
+      }catch(e) {
+        return {data: response, error: e}
+      }
     }
+    return {data: response, error: null}
+  }
 };
