@@ -31,6 +31,9 @@ module.exports = {
     Hash.update(string);
     return Hash.digest('hex');
   },
+  'isEmpty': (data) => {
+    return _.isEmpty(data)
+  },
   /**
    * convert json to string
    * @param json

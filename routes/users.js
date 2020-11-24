@@ -18,6 +18,7 @@ router.get('/logout', function(req, res, next) {
 router.post('/login', async function(req, res, next) {
   let resp = await http_request(tools.GoUrl.baseUrl+'check', req.body, "POST");
   if (resp['error'] == null && resp['data'].statusCode == 200) {
+    console.log(resp['data'].body)
     var bodyJson = etools.s2j(resp['data'].body);
     if (bodyJson.code == 1000) {
       delete bodyJson.data.password
