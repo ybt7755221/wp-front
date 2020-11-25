@@ -67,7 +67,7 @@ block content
             td.created #{item.created}
             td.updated #{item.updated.split(' ')[0]}
             td
-              a(var-id='#{item.id}' id="infoBtn") 详情 
+              a(var-id='#{item.id}' class="infoBtn") 详情 
               span | 
               a(onclick="delWork(#{item.id})") 删除
             hidden(id="url_#{item.id}" class="fade") #{item.url}

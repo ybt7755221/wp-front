@@ -43,7 +43,7 @@ $(document).ready(function(){
             });
         }
     });
-    $('#infoBtn').click(function (event) {
+    $('.infoBtn').click(function (event) {
         let id = $(this).attr('var-id');
         let key = '#work_'+id;
         let title = $(key+' .title').html();
