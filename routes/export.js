@@ -210,6 +210,50 @@ router.get('/proWeekly', async function(req,res, next){
     }
 })
 
+router.get('/quarter', async (req, res, next)=>{
+    //获取季度信息
+    let quater = req.query['quarter'] ? req.query['quarter'] : etools.get_current_quarter();
+    let timeArr = etools.get_quarter(quater);
+    let resp = await http_request( work_url+'created-limit',{
+        'user_id': req.session.userInfo.id,
+        'page_num': 1,
+        'page_size': 1000,
+        'start_time': timeArr[0],
+        'end_time' : timeArr[1],
+        'sort':JSON.stringify({"id":"desc"})
+    }, 'GET');
+    if (resp['error'] == null && resp['data'].statusCode == 200) {
+        var workJson = etools.s2j(resp['data'].body)
+        if (workJson.code == 1000) {
+          if (workJson.data == null) {
+              res.render('export/quarter',{
+                  userinfo : req.session.userInfo,
+                  defQuarter: quater,
+                  list : null
+              })
+          }else{
+              var wList = {}
+              workJson.data.forEach((item)=>{
+                  const arr = wList[plist[item['project_id']]]
+                  if (Object.prototype.toString.call(arr) !== '[object Array]') {
+                      wList[plist[item['project_id']]] = []
+                  }
+                  wList[plist[item['project_id']]].push(item)
+              })
+              res.render('export/quarter',{
+                  userinfo : req.session.userInfo,
+                  defQuarter: quater,
+                  list : wList
+              })
+          }
+        }else{
+          res.send(workJson.msg)
+        }
+    }else{
+        res.send(error)
+    }
+});
+
 module.exports = router;
 
 Date.prototype.Format = function(fmt) { //author: meizz 

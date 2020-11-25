@@ -9,20 +9,20 @@ block content
           li.presentation.active
             a(href="/export/proWeekly?week=#{i}") 
               if i == 1
-                上周
+                font 上周
               else if i == 2
-                本周
+                font 本周
               else 
-                下周
+                font 下周
         else
           li.presentation
             a(href="/export/proWeekly?week=#{i}")
               if i == 1
-                上周
+                font 上周
               else if i == 2
-                本周
+                font 本周
               else 
-                下周
+                font 下周
     hr
     pre.row
       if list != null
