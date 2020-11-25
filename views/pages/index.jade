@@ -1,6 +1,41 @@
 extends page_layout
 
 block content
+  div(id="workDesc" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel")
+    div(class="modal-dialog" role="document")
+      .modal-content 
+        .modal-header
+          button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4.modal-title 任务详情
+        .modal-body
+          .row
+            p.col-md-3.padding-left-60 所属项目:
+            p#ml_project_id.col-md-9
+          .row
+            p.col-md-3.padding-left-60 任务名称:
+            p#ml_title.col-md-9
+          .row
+            p.col-md-3.padding-left-60 项目进度:
+            p#ml_progress.col-md-9
+          .row
+            p.col-md-3.padding-left-60 使用技术:
+            p#ml_work_type.col-md-9
+          .row
+            p.col-md-3.padding-left-60 禅道地址:
+            p#ml_url.col-md-9
+          .row
+            p.col-md-3.padding-left-60 开始时间:
+            p#ml_created.col-md-9
+          .row
+            p.col-md-3.padding-left-60 更新时间:
+            p#ml_updated.col-md-9
+          .row
+            p.col-md-3.padding-left-60 备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:
+            p#ml_backup.col-md-9
+
+          
+
   .container.table-responsive
     p
     .row
@@ -18,19 +53,21 @@ block content
         td 任务名称
         td 工作进度
         td 使用技术
-        td 备注
         td 开始时间
         td 更新时间
         td 操作
       if list != null  
         each item in list
           tr(id="work_#{item.id}")
-            td #{plist[item.project_id]} 
-            td #{item.title}
-            td #{item.progress}%
-            td #{workTypeList[item.work_type]}
-            td #{item.backup}
-            td #{item.created}
-            td #{item.updated.split(' ')[0]}
+            td.project_id #{plist[item.project_id]} 
+            td.title #{item.title}
+            td.progress
+              div(class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="#{item.progress}" aria-valuemin="0" aria-valuemax="100" style="width: #{item.progress}%;") #{item.progress}%
+            td.work_type #{workTypeList[item.work_type]}
+            td.created #{item.created}
+            td.updated #{item.updated.split(' ')[0]}
             td
-              a(href="#" onclick="delWork(#{item.id})") 删除
+              a(var-id='#{item.id}' id="infoBtn") 详情 
+              span | 
+              a(onclick="delWork(#{item.id})") 删除
+            hidden(id="url_#{item.id}" class="fade") #{item.url}

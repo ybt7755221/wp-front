@@ -5,6 +5,9 @@ body {
   min-height: 10px;
   clear: both;
 }
+.padding-left-60{
+  padding-left: 60px;
+}
 .padding-10{
   padding-top: 10px;
 }

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    let that = this
     $('#work_type').select2();
     $('#progress').select2();
     $('#project_id').select2();
@@ -27,7 +28,7 @@ $(document).ready(function(){
                         html += '<td>'+$('#work_type option:selected').html()+'</td>';
                         html += '<td>'+data.data.title+'</td>';
                         html += '<td>'+data.data.url+'</td>';
-                        html += '<td>'+data.data.progress+'%</td>';
+                        html += '<td><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="'+data.data.progress+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data.data.progress+'%;">'+data.data.progress+'%</div></td>';
                         html += '<td>'+data.data.backup+'</td>';
                         html += '<td>'+data.data.created+'</td>';
                         html += '<td><button onclick="delWork('+data.data.id+')">删除</button></td>'
@@ -41,6 +42,27 @@ $(document).ready(function(){
                 }
             });
         }
+    });
+    $('#infoBtn').click(function (event) {
+        let id = $(this).attr('var-id');
+        let key = '#work_'+id;
+        let title = $(key+' .title').html();
+        let project_id = $(key+' .project_id').html();
+        let progress = $(key+' .progress').html();
+        let work_type = $(key+' .work_type').html();
+        let backup = $(key+' .backup').html();
+        let created = $(key+' .created').html();
+        let updated = $(key+' .updated').html();
+        let url = $('#url_'+id).html();
+        $('#ml_title').html(title);
+        $('#ml_project_id').html(project_id);
+        $('#ml_progress').html(progress);
+        $('#ml_work_type').html(work_type);
+        $('#ml_backup').html(backup);
+        $('#ml_created').html(created);
+        $('#ml_updated').html(updated);
+        $('#ml_url').html(url);
+        $('#workDesc').modal('show')
     });
 });
 
