@@ -25,11 +25,13 @@ block content
     pre.row
       if list != null
         if defDay == 1 
-          p.col-md-12 昨天:
+          p.col-md-8 昨天:
         else if defDay == 2
-          p.col-md-12 今天:
+          p.col-md-8 今天:
         else 
-          p.col-md-12 明天:
+          p.col-md-8 明天:
+        p.col-md-4
+          a(id='hiddenUrl' var-hidden=0) 隐藏url
         br
         each value, key in list
           p.col-md-12 #{key}:
@@ -39,7 +41,7 @@ block content
             p.col-md-4 完成度：#{item['progress']}%
             br
             if item['url'] != ""
-              p.col-md-12 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;禅道地址：#{item['url']}
+              p.col-md-12.wUrl &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;禅道地址：#{item['url']}
               br
       else 
         p 没有数据
