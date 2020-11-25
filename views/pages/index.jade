@@ -61,8 +61,9 @@ block content
           tr(id="work_#{item.id}")
             td.project_id #{plist[item.project_id]} 
             td.title #{item.title}
-            td.progress
-              div(class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="#{item.progress}" aria-valuemin="0" aria-valuemax="100" style="width: #{item.progress}%;") #{item.progress}%
+            td.pgs
+              .progress
+                div(class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="#{item.progress}" aria-valuemin="0" aria-valuemax="100" style="width: #{item.progress}%;") #{item.progress}%
             td.work_type #{workTypeList[item.work_type]}
             td.created #{item.created}
             td.updated #{item.updated.split(' ')[0]}

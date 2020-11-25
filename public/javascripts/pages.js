@@ -28,7 +28,7 @@ $(document).ready(function(){
                         html += '<td>'+$('#work_type option:selected').html()+'</td>';
                         html += '<td>'+data.data.title+'</td>';
                         html += '<td>'+data.data.url+'</td>';
-                        html += '<td><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="'+data.data.progress+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data.data.progress+'%;">'+data.data.progress+'%</div></td>';
+                        html += '<td><div class="progress"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="'+data.data.progress+'" aria-valuemin="0" aria-valuemax="100" style="width: '+data.data.progress+'%;">'+data.data.progress+'%</div></div></td>';
                         html += '<td>'+data.data.backup+'</td>';
                         html += '<td>'+data.data.created+'</td>';
                         html += '<td><button onclick="delWork('+data.data.id+')">删除</button></td>'
@@ -48,7 +48,7 @@ $(document).ready(function(){
         let key = '#work_'+id;
         let title = $(key+' .title').html();
         let project_id = $(key+' .project_id').html();
-        let progress = $(key+' .progress').html();
+        let progress = $(key+' .pgs').html();
         let work_type = $(key+' .work_type').html();
         let backup = $(key+' .backup').html();
         let created = $(key+' .created').html();
