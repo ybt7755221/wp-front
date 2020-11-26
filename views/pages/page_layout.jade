@@ -12,11 +12,17 @@ html
     script(src='/javascripts/select2.min.js')
     script(src='/javascripts/pages.js')
   body
-    .row.banner
-      .col-md-2 
-        a(href="/pages/") Work Report System
-      .col-md-6
-      .col-md-4.text-center 欢迎，#{userinfo.username}（#{userinfo.email}）
-        input(type="hidden" id="LoginUserId" readonly="readonly" name="userID", value="#{userinfo.id}")
-        a(href="/users/logout") logout
+    nav.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          p.navbar-brand Work Report System
+        ul.nav.navbar-nav
+          li.active 
+            a(href="/pages/") 工作记录
+          li 
+            a(href="/attendance/") 加班记录
+        .nav.navbar-nav.navbar-right
+          span.banner 欢迎，#{userinfo.username}（#{userinfo.email}）
+            input(type="hidden" id="LoginUserId" readonly="readonly" name="userID", value="#{userinfo.id}")
+            a(href="/users/logout") logout
     block content

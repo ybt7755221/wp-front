@@ -1,0 +1,36 @@
+extends layout
+block content
+  .container.table-responsive
+    p
+    .row
+      p.col-md-4
+      p.col-md-8.text-right
+        a(class="btn btn-primary btn-sm" href="#") 创建加班记录
+        a(class="btn btn-primary btn-sm" href="#") 创建调休记录
+    table.table
+      tr.success
+        td 加班日期
+        td 加班时长
+        td 使用时长
+        td 剩余时长
+        td 状态
+        td 操作
+      if attendanceList != null  
+        each item in attendanceList
+          tr(id="work_#{item.id}")
+            td #{item.overtime} 
+            td #{item.hours}
+            td #{item.used}
+            td #{item.hours - item.used}
+            td 
+              if item.status == 1
+                span 未使用
+              else if item.status == 0
+                span 已用完
+              else if item.status == 2
+                span 部分使用
+            td
+              a(var-id="#{item.id}" class="infoBtn") 详情 
+              span | 
+              a(var-id="#{item.id}" href="#") 删除
+      

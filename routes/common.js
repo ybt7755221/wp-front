@@ -9,4 +9,6 @@ module.exports.GoUrl = {
     workUrl : baseUrl + 'work/',
     projectUrl : baseUrl + 'project/',
     userUrl : baseUrl + 'user/',
+    attendanceUrl : baseUrl + 'attendance/',
+    dayoffUrl : baseUrl + 'dayoff/'
 }

@@ -5,34 +5,24 @@ html
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     link(rel="stylesheet", href="/stylesheets/bootstrap-datetimepicker.min.css")
     link(rel="stylesheet", href="/stylesheets/select2.min.css")
-    link(rel="stylesheet", href="/stylesheets/style.css")
+    link(rel="stylesheet", href="/stylesheets/attendance.css")
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/bootstrap.min.js')  
     script(src='/javascripts/bootstrap-datetimepicker.min.js')  
     script(src='/javascripts/select2.min.js')
-    script(src='/javascripts/export.js')
+    script(src='/javascripts/attendance.js')
   body
     nav.navbar.navbar-default
       .container-fluid
         .navbar-header
           p.navbar-brand Work Report System
         ul.nav.navbar-nav
-          li.active 
-            a(href="/pages/") 工作记录
           li 
+            a(href="/pages/") 工作记录
+          li.active 
             a(href="/attendance/") 加班记录
         .nav.navbar-nav.navbar-right
           span.banner 欢迎，#{userinfo.username}（#{userinfo.email}）
             input(type="hidden" id="LoginUserId" readonly="readonly" name="userID", value="#{userinfo.id}")
             a(href="/users/logout") logout
-    p
-    .row.export-layout
-      p.col-md-4
-      p.col-md-8.text-right
-        a(class="btn btn-primary btn-sm" href="/export/priDaily") 个人日报
-        a(class="btn btn-primary btn-sm" href="/export/priWeekly") 个人周报
-        a(class="btn btn-primary btn-sm" href="/export/proDaily") 项目日报
-        a(class="btn btn-primary btn-sm" href="/export/proWeekly") 项目周报
-        a(class="btn btn-primary btn-sm" href="/export/quarter") 个人季度总结
-        a(class="btn btn-primary btn-sm" href="/pages") 返回列表
     block content

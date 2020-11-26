@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    let that = this
     $('#work_type').select2();
     $('#progress').select2();
     $('#project_id').select2();

@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pagesRouter = require('./routes/pages');
 var exportRouter = require('./routes/export');
+var attendanceRouter = require('./routes/attendance');
 
 var app = express();
 //配置中间件
@@ -33,6 +34,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/pages', pagesRouter);
 app.use('/export', exportRouter);
+app.use('/attendance', attendanceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
