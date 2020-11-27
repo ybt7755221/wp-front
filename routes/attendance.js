@@ -11,6 +11,16 @@ router.all('*', function(req, res, next) {
     userinfo = req.session['userInfo'];
     next();
 });
+/**
+ * 获取详情
+ */
+router.get('/getDayoff', async (req, res, next) => {
+    let resp = await ets.http_request(GoUrl.dayoffUrl, req.query, 'GET');
+    if (resp['error'] != null && resp['data'].statusCode != 200) {
+        res.send({code:1990, msg:resp['error'], data:{}});
+    }
+    res.send(ets.s2j(resp['data'].body))
+});
 
 router.get('/', async (req, res, next) => {
     let resp = await ets.http_request(GoUrl.attendanceUrl, {
@@ -24,7 +34,6 @@ router.get('/', async (req, res, next) => {
     if (bodyJson.code != 1000) {
         res.send(bodyJson.msg);
     }
-    console.log(bodyJson);
     res.render('attendance/index', {
         userinfo: req.session['userInfo'],
         attendanceList: bodyJson.data

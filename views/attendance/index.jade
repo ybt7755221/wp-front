@@ -10,9 +10,9 @@ block content
     table.table
       tr.success
         td 加班日期
-        td 加班时长
-        td 使用时长
-        td 剩余时长
+        td 加班时长(h)
+        td 使用时长(h)
+        td 剩余时长(h)
         td 状态
         td 操作
       if attendanceList != null  
@@ -30,7 +30,10 @@ block content
               else if item.status == 2
                 span 部分使用
             td
-              a(var-id="#{item.id}" class="infoBtn") 详情 
+              a(var-id='#{item.id}' var-status='#{item.status}' class="infoBtn") 使用记录
               span | 
-              a(var-id="#{item.id}" href="#") 删除
-      
+              a(var-id="#{item.id}" class="delBtn") 删除
+          tr(id="info_#{item.id}" class='well hidden')
+            td(colspan="5" class="detail") 
+            td 
+              a(var-id="#{item.id}" class="hideBtn") 收起

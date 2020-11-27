@@ -1,50 +1,50 @@
 body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  }
-  .navbar{
+}
+.navbar{
     margin-bottom: 0px;
     border-bottom-width: 0px;
     height: 50px;
-  }
-  .height-10{
+}
+.height-10{
     min-height: 10px;
     clear: both;
-  }
-  .padding-left-60{
+}
+.padding-left-60{
     padding-left: 60px;
-  }
-  .padding-10{
+}
+.padding-10{
     padding-top: 10px;
-  }
-  a:hover {
+}
+a:hover {
     color: #00B7FF;
     cursor: pointer;
-  }
-  .banner {
+}
+.banner {
     margin-right: 10px;
     height:50px;
     line-height: 50px;
-  }
-  .text-red {
+}
+.text-red {
     color: red;
-  }
-  .bg-red {
+}
+.bg-red {
     background-color: red;
-  }
-  .bg-grey {
+}
+.bg-grey {
     background-color: #efefef;
-  }
+}
   
-  #login {
+#login {
     margin: 0 auto;
     width: 300px;
-  }
+}
   
-  .center-button {
+.center-button {
     padding-top: 10px;
     text-align: center;
-  }
-  #work {
+}
+#work {
     padding: 10px;
     margin: 10px auto;
     width: 600px;
@@ -53,26 +53,8 @@ body {
     border-top-right-radius:10px;
     border-bottom-left-radius:10px;
     border-bottom-right-radius:10px;
-  }
-  #register{
-    margin: 0 auto;
-    width: 300px;
-  }
-  #export {
-    padding: 10px;
-    margin: 10px auto;
-    width: 800px;
-  }
-  .export-layout {
-    padding: 10px;
-    margin: 10px auto;
-    width: 800px;
-  }
-  pre {
-    white-space: pre-wrap;       /* css-3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-  } 
-  
+}
+
+.hidden{
+    display:none;
+}
