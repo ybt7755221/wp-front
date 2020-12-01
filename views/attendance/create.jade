@@ -29,8 +29,8 @@ block content
               span 加班时长
             select#hours(name="hours" class="form-control")
               - var n = 1
-              while n < 25
-                - var i = n++
+              while n < 7
+                - var i = 4*n++
                 option(value="#{i}") #{i}h
         .center-button.col-md-12
           button(class="btn btn-default" type="button" id="submit") 提交

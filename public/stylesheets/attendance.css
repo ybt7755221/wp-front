@@ -58,3 +58,7 @@ a:hover {
 .hidden{
     display:none;
 }
+
+.width-650 {
+    width: 650px;
+}

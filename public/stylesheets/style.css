@@ -47,7 +47,7 @@ a:hover {
 #work {
   padding: 10px;
   margin: 10px auto;
-  width: 600px;
+  width: 800px;
   background-color: #efefef;
   border-top-left-radius:10px;
   border-top-right-radius:10px;
@@ -68,6 +68,7 @@ a:hover {
   margin: 10px auto;
   width: 800px;
 }
+
 pre {
   white-space: pre-wrap;       /* css-3 */
   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */

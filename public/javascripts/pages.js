@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function(){
     $('#work_type').select2();
     $('#progress').select2();
     $('#project_id').select2();
@@ -17,7 +17,11 @@ $(document).ready(function(){
             data[this.name] = this.value;
         });
         if (data['progress'] == "" || data['title'] == "" || data['project_id'] == "" || data['created'] == "") {
-            alert('必填字段不能为空！');
+            $.alert({
+                title:"错误",
+                type: 'red',
+                content:'必填字段不能为空!'
+            });
         } else {
             $.post("/pages/save",data,function(data,status){
                 if (status == 'success') {
@@ -34,10 +38,18 @@ $(document).ready(function(){
                         html += "</tr>";
                         $('#table').append(html);
                     }else{
-                        alert(data.msg)
+                        $.alert({
+                            title:"错误",
+                            type: 'red',
+                            content:data.msg
+                        })
                     }
                 }else{
-                    alert(data)
+                    $.alert({
+                        title:"错误",
+                        type: 'red',
+                        content:data
+                    })
                 }
             });
         }
@@ -66,15 +78,34 @@ $(document).ready(function(){
 });
 
 function delWork(id) {
-    var user_id = $("#LoginUserId").val()
-    $.post("/pages/delWork",{id:id, user_id:user_id},function(data,status){
-        if (status == 'success') {
-            if (data.code == 1000) {
-                alert("删除成功")
-                $('#work_'+id).remove();
+    $.confirm({
+        title: '删除',
+        type: 'green',
+        content: '确定删除？',
+        buttons: {
+            confirm: function () {
+                var user_id = $("#LoginUserId").val()
+                $.post("/pages/delWork",{id:id, user_id:user_id},function(data,status){
+                    if (status == 'success') {
+                        if (data.code == 1000) {
+                            $.alert({
+                                title:"成功",
+                                type: 'green',
+                                content:'删除成功'
+                            })
+                            $('#work_'+id).remove();
+                        }
+                    }else{
+                        $.alert({
+                            title:"错误",
+                            type: 'red',
+                            content:data
+                        })
+                    }
+                });
+            },
+            cancel: function () {
             }
-        }else{
-            alert(data)
         }
     });
 }

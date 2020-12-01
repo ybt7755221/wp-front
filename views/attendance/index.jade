@@ -1,5 +1,41 @@
 extends layout
 block content
+  div(id="dayoffModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel")
+    div(class="modal-dialog" role="document")
+      .modal-content.width-650 
+        .modal-header
+          button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4.modal-title 请假信息
+        .modal-body
+          form(name='dayoffForm' id="dayoff" action="/attendance/save-dayoff" method="post" class="row")
+            .from-inline.col-md-6
+              .input-group
+                .input-group-addon 
+                  pub.text-red* 
+                  span 请假日期
+                input(id="start_id" placeholder="请选择时间" autocomplete="off" type="select", class="form-control" name="dayoff")
+                input(type="hidden", name="attendance_id" id='attId')
+            .from-inline.col-md-6
+              .input-group
+                .input-group-addon 
+                  pub.text-red* 
+                  span 请假时长
+                select#hours(name="hours" class="form-control")
+                  - var n = 1
+                  while n < 3
+                    - var i = n++
+                    option(value="#{i * 4}") #{i * 4}h
+            .height-10
+            .from-inline.col-md-12
+              .input-group
+                .input-group-addon 
+                  span 备注
+                input(type="text", class="form-control" name="backup")
+            .center-button.col-md-12
+              button(class="btn btn-default" type="button" id="submit-dayoff") 提交
+              a(class="btn btn-default" data-dismiss="modal" aria-label="Close") 返回
+
   .container.table-responsive
     p
     .row
@@ -16,7 +52,7 @@ block content
         td 操作
       if attendanceList != null  
         each item in attendanceList
-          tr(id="work_#{item.id}")
+          tr(id="attd_#{item.id}")
             td #{item.overtime} 
             td #{item.hours}
             td #{item.used}
@@ -24,17 +60,13 @@ block content
             td 
               if item.status == 1
                 span 未使用
-              else if item.status == 0
+              else if item.status == 3
                 span 已用完
               else if item.status == 2
                 span 部分使用
             td
               a(var-id='#{item.id}' var-status='#{item.status}' class="infoBtn") 使用记录 
               span | 
-              a 使用调休 
+              a(var-id='#{item.id}' class="dayoffBtn") 使用调休 
               span | 
               a(var-id="#{item.id}" class="delBtn") 删除
-          tr(id="info_#{item.id}" class='well hidden')
-            td(colspan="5" class="detail") 
-            td 
-              a(var-id="#{item.id}" class="hideBtn") 收起

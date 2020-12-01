@@ -1,4 +1,4 @@
-$(document).ready(()=>{
+$(function(){
     $('#hiddenUrl').click(function(e){
         let hidden_status = $(this).attr('var-hidden');
         if (hidden_status == 0) {
