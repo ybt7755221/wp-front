@@ -143,11 +143,7 @@ $(function(){
             $.post("/attendance/save-dayoff",data,function(data,status){
                 if (status == 'success') {
                     if (data.code == 1000) {
-                        $.alert({
-                            title:"成功",
-                            type: 'success',
-                            content: '添加成功'
-                        });
+                        window.location.href='/attendance';
                     }else{
                         $.alert({
                             title:"错误",
