@@ -40,4 +40,32 @@ router.get('/', async (req, res, next) => {
     })
 });
 
+router.get('/create', async (req, res, next) => {
+    res.render('attendance/create', {
+        userinfo: req.session['userInfo'],
+    });
+});
+
+router.post('/save', async (req, res, next) => {
+    req.body.user_id = req.session['userInfo'].id;
+    req.body.status = 1;
+    let resp = await ets.http_request(GoUrl.attendanceUrl, req.body, "POST");
+    if (resp['error'] != null && resp['data'].statusCode != 200) {
+        res.send(resp['error']);
+    }
+    res.send(ets.s2j(resp['data'].body));
+});
+
+router.get('/delete', async (req, res, next) => {
+
+});
+
+router.get('/create-dayoff', async (req, res, next) => {
+
+});
+
+router.get('/delete-dayoff', async (req, res, next) => {
+
+});
+
 module.exports = router;

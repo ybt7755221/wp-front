@@ -5,8 +5,7 @@ block content
     .row
       p.col-md-4
       p.col-md-8.text-right
-        a(class="btn btn-primary btn-sm" href="#") 创建加班记录
-        a(class="btn btn-primary btn-sm" href="#") 创建调休记录
+        a(class="btn btn-primary btn-sm" href="/attendance/create") 创建加班记录
     table.table
       tr.success
         td 加班日期
@@ -30,7 +29,9 @@ block content
               else if item.status == 2
                 span 部分使用
             td
-              a(var-id='#{item.id}' var-status='#{item.status}' class="infoBtn") 使用记录
+              a(var-id='#{item.id}' var-status='#{item.status}' class="infoBtn") 使用记录 
+              span | 
+              a 使用调休 
               span | 
               a(var-id="#{item.id}" class="delBtn") 删除
           tr(id="info_#{item.id}" class='well hidden')

@@ -1,0 +1,37 @@
+extends layout
+block content
+  .container.table-responsive
+    p
+    .row
+      p.col-md-4
+      p.col-md-8.text-right
+        a(class="btn btn-primary btn-sm" href="/attendance/create") 创建加班记录
+    table#table.table
+      tr.success
+        td 加班日期
+        td 加班时长(h)
+        td 使用时长(h)
+        td 剩余时长(h)
+        td 状态
+        td 操作
+
+    form(name='attendanceForm' id="attendance" action="/attendance/save" method="post" class="row")
+        .from-inline.col-md-6
+          .input-group
+            .input-group-addon 
+              pub.text-red* 
+              span 加班日期
+            input(id="start_id" placeholder="请选择时间" autocomplete="off" type="select", class="form-control" name="overtime")
+        .from-inline.col-md-6
+          .input-group
+            .input-group-addon 
+              pub.text-red* 
+              span 加班时长
+            select#hours(name="hours" class="form-control")
+              - var n = 1
+              while n < 25
+                - var i = n++
+                option(value="#{i}") #{i}h
+        .center-button.col-md-12
+          button(class="btn btn-default" type="button" id="submit") 提交
+          a(class="btn btn-default" href="javascript:location.href=/attendance/") 返回
