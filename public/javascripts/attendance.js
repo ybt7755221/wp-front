@@ -30,6 +30,7 @@ $(function(){
                 html += '</table>';
                 $.confirm({
                     title:"使用详情",
+                    columnClass: 'medium',
                     type:"blue",
                     boxWidth: '500px',
                     content: html
@@ -100,6 +101,10 @@ $(function(){
                     $.post("/attendance/delete",{id:id},function(data,status){
                         if (status == 'success') {
                             if (data.code == 1000) {
+                                $.post("/attendance/delete-dayoff",{attendance_id:id},function(data, status){
+                                    console.log(data);
+                                    console.log(status);
+                                });
                                 $('#attd_'+id).remove();
                             }else{
                                 $.alert({

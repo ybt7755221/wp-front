@@ -105,7 +105,6 @@ router.post('/save-dayoff', async (req, res, next) => {
         used: used,
         status: status
     };
-    console.log(params);
     let resp2 = await ets.http_request(GoUrl.attendanceUrl+'update-by-id', params, "POST");
     if (resp2['error'] != null && resp2['data'].statusCode != 200) {
         res.send(resp2['error']);
@@ -113,8 +112,12 @@ router.post('/save-dayoff', async (req, res, next) => {
     res.send(ets.s2j(resp2['data'].body));
 });
 
-router.get('/delete-dayoff', async (req, res, next) => {
-
+router.post('/delete-dayoff', async (req, res, next) => {
+    let resp = await ets.http_request(GoUrl.dayoffUrl+'delete-by-attendance-id', req.body, "POST");
+    if (resp['error'] != null && resp['data'].statusCode != 200) {
+        res.send(resp['error']);
+    }
+    res.send(ets.s2j(resp['data'].body));
 });
 
 module.exports = router;
