@@ -11,16 +11,22 @@ router.all('*', function(req, res, next) {
   if(!req.session.userInfo){  /*获取*/
     res.redirect('/')
   }
-  next()
+  next();
 });
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+  let page = 1;
+  let page_num = 10;
+  let isLast = 0;
+  if (req.query['page'] != "" && req.query['page'] > 0) {
+    page = req.query['page'];
+  }
   let resp = await etools.http_request(work_url, {
-      'user_id':req.session.userInfo.id,
-      'page_num':1,
-      'page_size':100,
-      'sort':JSON.stringify({"id":"desc"})
+      'user_id'   : req.session.userInfo.id,
+      'page_num'  : page,
+      'page_size' : page_num,
+      'sort'      : JSON.stringify({"id":"desc"})
   }, 'GET');
   if (!resp['error'] && resp['data'].statusCode == 200) {
     var workJson = etools.s2j(resp['data'].body)
@@ -35,10 +41,16 @@ router.get('/', async function(req, res, next) {
                 plist[item['id']] = item['project_name']
               })
             }
+            if (page_num > workJson.data.length) {
+              isLast = 1;
+            }
             res.render('pages/index',{
               userinfo : req.session.userInfo,
               list : workJson.data,
               workTypeList: tools.WorkType,
+              currentPage : page,
+              pageNum : page_num,
+              isLast : isLast,
               plist: plist
             })
           }else{

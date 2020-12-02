@@ -75,6 +75,29 @@ $(function(){
         $('#ml_url').html(url);
         $('#workDesc').modal('show')
     });
+    $(".paging").click(function(event) {
+        let type = $(this).attr('id');
+        let isLast = $(this).attr('var-isLast');
+        let currentPage = $(this).attr('var-cp');
+        let page = Number(currentPage);
+        if (type == 'prev') {//上一页
+            if (currentPage == 1) {
+                $.alert({title:'', type:'red', content:'已经是第一页'});
+                return
+            }
+            page = page - 1;
+        }else if (type == 'next') {//下一页
+            if (isLast == 1) {
+                $.alert({title:'', type:'red', content:'已经是最后一页'});
+                return
+            }
+            page = page + 1;
+        }else{
+            $.alert({title:'', type:'red', content:'非法操作'});
+            return
+        }
+        window.location.href="/pages?page="+page;
+    });
 });
 
 function delWork(id) {

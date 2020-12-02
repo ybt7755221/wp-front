@@ -71,4 +71,12 @@ block content
               a(var-id='#{item.id}' class="infoBtn") 详情 
               span | 
               a(onclick="delWork(#{item.id})") 删除
-            hidden(id="url_#{item.id}" class="fade") #{item.url}
+              input(id="url_#{item.id}" hidden="hidden" value="#{item.url}") 
+    hr
+    nav
+      ul.pager
+        li
+          a(id="prev" class="paging" var-isLast="#{isLast}" var-cp="#{currentPage}") 上一页
+        li.paginginfo &nbsp;当前是第#{currentPage}页, 每页#{pageNum}条&nbsp;
+        li
+          a(id="next" class="paging" var-isLast="#{isLast}" var-cp="#{currentPage}") 下一页
