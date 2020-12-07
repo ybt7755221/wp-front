@@ -61,7 +61,7 @@ $(function(){
         let project_id = $(key+' .project_id').html();
         let progress = $(key+' .pgs').html();
         let work_type = $(key+' .work_type').html();
-        let backup = $(key+' .backup').html();
+        let backup = $('#backup_'+id).val();
         let created = $(key+' .created').html();
         let updated = $(key+' .updated').html();
         let url = $('#url_'+id).html();

@@ -71,6 +71,7 @@ block content
               a(var-id='#{item.id}' class="infoBtn") 详情 
               span | 
               a(onclick="delWork(#{item.id})") 删除
+              input(id="backup_#{item.id}" hidden="hidden" value="#{item.backup}")
               input(id="url_#{item.id}" hidden="hidden" value="#{item.url}") 
     hr
     nav
