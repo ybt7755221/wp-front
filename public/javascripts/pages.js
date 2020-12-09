@@ -9,7 +9,7 @@ $(function(){
         autoclose: 1,//选择后自动关闭
         clearBtn:true,//清除按钮
     });
-
+    $("#start_id").datetimepicker("setDate", new Date());
     $('#submit').click(function(e) {
         let data = {};
         let arr = $('form').serializeArray();
