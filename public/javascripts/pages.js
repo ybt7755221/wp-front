@@ -54,6 +54,27 @@ $(function(){
             });
         }
     });
+    $('.updateBtn').click(function(e){
+        let id = $(this).attr('var-id');
+        let key = '#work_'+id;
+        let title = $(key+' .title').html();
+        let project_id = $(key+' .project_id').attr('var-p');
+        let progress = $(key+' .pgs').attr('var-p');
+        let work_type = $(key+' .work_type').attr('var-p');
+        let backup = $('#backup_'+id).val();
+        let created = $(key+' .created').html();
+        let url = $(this).attr('var-url');
+        let keyT = '#up_';
+        $(keyT+"id").val(id);
+        $(keyT+"title").val(title);
+        $(keyT+"created").val(created);
+        $(keyT+"project_id option[value="+project_id+"]").attr("selected", "selected");
+        $(keyT+"work_type option[value="+work_type+"]").attr("selected", "selected");
+        $(keyT+"progress option[value="+progress+"]").attr("selected", "selected");
+        $(keyT+"backup").val(backup);
+        $(keyT+"url").val(url);
+        $('#workUpdateDesc').modal('show');
+    })
     $('.infoBtn').click(function (event) {
         let id = $(this).attr('var-id');
         let key = '#work_'+id;

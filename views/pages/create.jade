@@ -50,10 +50,10 @@ block content
           .input-group
             .input-group-addon 进度
             select#progress(name="progress" class="form-control")
-              - var n = 0
-              while n < 101
-                - var i = n++
-                option(value="#{i}") #{i}%
+              - var n = 10
+              while n > 0
+                - var i = n--
+                option(value="#{i*10}") #{i*10}%
         .height-10
         .from-inline.col-md-12
           .input-group

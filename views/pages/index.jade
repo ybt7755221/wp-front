@@ -1,6 +1,66 @@
 extends page_layout
 
 block content
+  div(id="workUpdateDesc" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel")
+    div(class="modal-dialog" role="document")
+      .modal-content 
+        .modal-header
+          button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4.modal-title 任务更新
+        .modal-body
+          form(name='workUpdate' id="workUpdate" action="/pages/update" method="post" class="row")
+            .from-inline.col-md-12
+              .input-group
+                .input-group-addon 
+                  pub.text-red* 
+                  span 任务名称
+                input(type="text" id="up_title" class="form-control" name="title")
+            .height-10
+            .from-inline.col-md-6
+              .input-group
+                .input-group-addon 
+                  pub.text-red* 
+                  span 所属项目
+                select#up_project_id(name="project_id" class="form-control")
+                  option(value="") 请选择项目
+                  each value, key in plist
+                    option(value="#{key}") #{value}
+            .from-inline.col-md-6
+              .input-group
+                .input-group-addon 
+                  pub.text-red* 
+                  span 任务时间
+                input(id="up_created" type="text", class="form-control" name="created")
+            .height-10
+            .from-inline.col-md-6
+              .input-group
+                .input-group-addon 技术
+                select#up_work_type(name="work_type" class="form-control")
+                  each value, key in workTypeList
+                    option(value="#{key}") #{value}
+            .from-inline.col-md-6
+              .input-group
+                .input-group-addon 进度
+                select#up_progress(name="progress" class="form-control")
+                  - var n = 10
+                  while n > 0
+                    - var i = n--
+                    option(value="#{i*10}") #{i*10}%
+            .height-10
+            .from-inline.col-md-12
+              .input-group
+                .input-group-addon url地址
+                input(type="text", class="form-control" id="up_url" name="url")
+            .height-10
+            .from-inline.col-md-12
+              .input-group
+                .input-group-addon 备注
+                textarea(class="form-control" name="backup" id="up_backup") --
+            .center-button.col-md-12
+              button(class="btn btn-default" type="button" id="update") 提交
+              button(type="button" class="close" data-dismiss="modal" aria-label="Close") 返回
+
   div(id="workDesc" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel")
     div(class="modal-dialog" role="document")
       .modal-content 
@@ -32,9 +92,7 @@ block content
             p#ml_updated.col-md-9
           .row
             p.col-md-3.padding-left-60 备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:
-            p#ml_backup.col-md-9
-
-          
+            p#ml_backup.col-md-9          
 
   .container.table-responsive
     p
@@ -59,16 +117,18 @@ block content
       if list != null  
         each item in list
           tr(id="work_#{item.id}")
-            td.project_id #{plist[item.project_id]} 
+            td(class='project_id' var-p="#{item.project_id}") #{plist[item.project_id]} 
             td.title #{item.title}
-            td.pgs
+            td(class='pgs' var-p="#{item.progress}")
               .progress
                 div(class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="#{item.progress}" aria-valuemin="0" aria-valuemax="100" style="width: #{item.progress}%;") #{item.progress}%
-            td.work_type #{workTypeList[item.work_type]}
+            td(class="work_type" var-p="#{item.work_type}") #{workTypeList[item.work_type]}
             td.created #{item.created}
             td.updated #{item.updated.split(' ')[0]}
             td
               a(var-id='#{item.id}' class="infoBtn") 详情 
+              span | 
+              a(var-id='#{item.id}' var-url="#{item.url}" class="updateBtn") 更新 
               span | 
               a(onclick="delWork(#{item.id})") 删除
               input(id="backup_#{item.id}" hidden="hidden" value="#{item.backup}")
