@@ -9,19 +9,19 @@ module.exports = {
   /**
    * return the success data.
    * @param data
-   * @returns {{success: boolean, result: *, httpCode: number}}
+   * @returns {{success: boolean, msg:string, data: *, code: number}}
    */
   'success': (data) => {
-    return {'success': true, 'result': data, 'code': 1000};
+    return {'success': true, 'msg':'success', 'data': data, 'code': 1000};
   },
   /**
    * return the error data.
    * @param data
    * @param httpCode
-   * @returns {{success: boolean, result: *, httpCode: *}}
+   * @returns {{success: boolean, msg:string, data: *, code: *}}
    */
-  'error': (data, code) => {
-    return {'success': false, 'result': data, 'code': code};
+  'error': (msg, code) => {
+    return {'success': false, 'msg': msg, 'data':null, 'code': code};
   },
   /**
    * encryption user password
