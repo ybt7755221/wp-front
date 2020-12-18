@@ -93,7 +93,11 @@ $(function(){
         $('#ml_backup').html(backup);
         $('#ml_created').html(created);
         $('#ml_updated').html(updated);
-        $('#ml_url').html("<a href='"+url+"' target='view_window'>"+url+"</a>");
+        if (url == null || url == ' ') {
+            $('#ml_url').html("");
+        }else{
+            $('#ml_url').html("<a href='"+url+"' target='view_window'>"+url+"</a>");
+        }
         $('#workDesc').modal('show');
     });
     $("#update").click(function(event){
