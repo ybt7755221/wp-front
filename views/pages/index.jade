@@ -16,6 +16,7 @@ block content
                   pub.text-red* 
                   span 任务名称
                 input(type="text" id="up_title" class="form-control" name="title")
+                input(type="hidden" id="up_id", name="id")
             .height-10
             .from-inline.col-md-6
               .input-group
@@ -59,7 +60,7 @@ block content
                 textarea(class="form-control" name="backup" id="up_backup") --
             .center-button.col-md-12
               button(class="btn btn-default" type="button" id="update") 提交
-              button(type="button" class="close" data-dismiss="modal" aria-label="Close") 返回
+              button(type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close") 关闭
 
   div(id="workDesc" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel")
     div(class="modal-dialog" role="document")

@@ -4,6 +4,7 @@ var router = express.Router();
 var tools = require('./common');
 const _ = require('lodash');
 const etools = require('../library/etools');
+const e = require('express');
 const work_url = tools.GoUrl.workUrl;
 const project_url = tools.GoUrl.projectUrl;
 
@@ -12,6 +13,26 @@ router.all('*', function(req, res, next) {
     res.redirect('/')
   }
   next();
+});
+
+router.post('/update', async function(req, res, next){
+  let data = etools.j2s(req.body);
+  data = etools.s2j(data);
+  console.log(work_url+'update-by-id');
+  console.log(data);
+  let resp = await etools.http_request(work_url+'update-by-id', data, 'POST');
+  let error = resp['error'];
+  let response = resp['data'];
+  if (!error && response.statusCode == 200) { 
+    let body = etools.s2j(response.body);
+    if (body['code'] == 1000) {
+      res.send(etools.success(body['data']));
+    }else{
+      res.send(etools.error(body['data'], body['code']));
+    }
+  }else{
+    res.send(etools.error(error != null ? error : etools.j2s(response), 10010));
+  }
 });
 
 /* GET home page. */

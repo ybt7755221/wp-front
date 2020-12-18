@@ -12,7 +12,7 @@ module.exports = {
    * @returns {{success: boolean, result: *, httpCode: number}}
    */
   'success': (data) => {
-    return {'success': true, 'result': data, 'httpCode': 200};
+    return {'success': true, 'result': data, 'code': 1000};
   },
   /**
    * return the error data.
@@ -20,8 +20,8 @@ module.exports = {
    * @param httpCode
    * @returns {{success: boolean, result: *, httpCode: *}}
    */
-  'error': (data, httpCode) => {
-    return {'success': false, 'result': data, 'httpCode': httpCode};
+  'error': (data, code) => {
+    return {'success': false, 'result': data, 'code': code};
   },
   /**
    * encryption user password

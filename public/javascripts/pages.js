@@ -85,7 +85,7 @@ $(function(){
         let backup = $('#backup_'+id).val();
         let created = $(key+' .created').html();
         let updated = $(key+' .updated').html();
-        let url = $('#url_'+id).html();
+        let url = $('#url_'+id).val();
         $('#ml_title').html(title);
         $('#ml_project_id').html(project_id);
         $('#ml_progress').html(progress);
@@ -93,9 +93,44 @@ $(function(){
         $('#ml_backup').html(backup);
         $('#ml_created').html(created);
         $('#ml_updated').html(updated);
-        $('#ml_url').html(url);
-        $('#workDesc').modal('show')
+        $('#ml_url').html("<a href='"+url+"' target='view_window'>"+url+"</a>");
+        $('#workDesc').modal('show');
     });
+    $("#update").click(function(event){
+        let data = {};
+        let arr = $('form').serializeArray();
+        $.each(arr, function() {
+            data[this.name] = this.value;
+        });
+        if (data['progress'] == "" || data['title'] == "" || data['project_id'] == "" || data['created'] == "") {
+            $.alert({
+                title:"错误",
+                type: 'red',
+                content:'必填字段不能为空!'
+            });
+        } else {
+            $.post("/pages/update",data,function(data,status){
+                if (status == 'success') {
+                    if (data.code == 1000) {
+                        window.location.reload();
+                    }else{
+                        $.alert({
+                            title:"错误",
+                            type: 'red',
+                            content:data.msg
+                        })
+                    }
+                }else{
+                    $.alert({
+                        title:"错误",
+                        type: 'red',
+                        content:data
+                    })
+                }
+            });
+        }
+
+    })
     $(".paging").click(function(event) {
         let type = $(this).attr('id');
         let isLast = $(this).attr('var-isLast');
