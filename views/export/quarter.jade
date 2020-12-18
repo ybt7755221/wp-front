@@ -48,7 +48,7 @@ block content
             p.col-md-8 &nbsp;&nbsp;&nbsp;#{idx+1+'.'+item['title']}&nbsp;&nbsp;&nbsp;&nbsp;
             p.col-md-4 完成度：#{item['progress']}%
             br
-            if item['url'] != ""
+            if item['url'] != "" || item['url'] != " "
               p.col-md-12.wUrl &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;禅道地址：#{item['url']}
               br
       else 
