@@ -62,7 +62,8 @@ router.get('/', async function(req, res, next) {
                 plist[item['id']] = item['project_name']
               })
             }
-            if (page_num > workJson.data.length) {
+
+            if (workJson.data == null || page_num > workJson.data.length) {
               isLast = 1;
             }
             res.render('pages/index',{
