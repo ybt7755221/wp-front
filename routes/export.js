@@ -3,6 +3,7 @@ var router = express.Router();
 var tools = require('./common')
 const etools = require('../library/etools');
 const { http_request } = require('../library/etools');
+const { forEach } = require('lodash');
 const work_url = tools.GoUrl.workUrl;
 const project_url = tools.GoUrl.projectUrl;
 var plist = {}
@@ -103,13 +104,23 @@ router.get('/priWeekly', async function(req, res, next){
               })
           }else{
               var wList = {}
-              workJson.data.forEach((item)=>{
-                  const arr = wList[plist[item['project_id']]]
+              let frList = etools.uniq_list(workJson.data)
+              for(let item in frList) {
+                let jkey = frList[item]
+                const arr = wList[plist[jkey.project_id]]
                   if (Object.prototype.toString.call(arr) !== '[object Array]') {
-                      wList[plist[item['project_id']]] = []
+                    wList[plist[jkey.project_id]] = []
                   }
-                  wList[plist[item['project_id']]].push(item)
-              })
+                wList[plist[jkey.project_id]].push(jkey)
+              }
+              console.log(wList);
+            //   workJson.data.forEach((item)=>{
+            //       const arr = wList[plist[item['project_id']]]
+            //       if (Object.prototype.toString.call(arr) !== '[object Array]') {
+            //           wList[plist[item['project_id']]] = []
+            //       }
+            //       wList[plist[item['project_id']]].push(item)
+            //   })
               res.render('export/weekly',{
                   userinfo : req.session.userInfo,
                   defWeek: defWeek,

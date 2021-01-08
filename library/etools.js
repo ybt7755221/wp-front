@@ -6,6 +6,19 @@ var crypto = require('crypto');
 var _ = require('lodash');
 const { param } = require('../routes');
 module.exports = {
+  'uniq_list':(list)=> {
+    let newList = {};
+    list.forEach((item)=>{
+      if (newList[item['title']]) {
+        if (newList[item['title']]['progress'] < item['progress']) {
+          newList[item['title']]['progress'] = item['progress']
+        }
+      }else{
+        newList[item['title']] = item
+      }
+    })
+    return newList
+  },
   /**
    * return the success data.
    * @param data
