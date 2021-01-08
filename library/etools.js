@@ -67,22 +67,23 @@ module.exports = {
   },
   'get_quarter' : (qa) => {
     let timeArr =[];
+    let year = new Date().getFullYear()
     qa = _.floor(qa);
     if (qa > 4 || qa < 1) {
       qa = _.ceil((new Date().getMonth()+1) / 3);
     }
     switch(qa) {
       case 1:
-        timeArr = [ '2020-01-01', '2020-03-31'];
+        timeArr = [ year+'-01-01', year+'-03-31'];
         break;
       case 2:
-        timeArr = [ '2020-04-01', '2020-06-30'];
+        timeArr = [ year+'-04-01', year+'-06-30'];
         break;
       case 3:
-        timeArr = [ '2020-07-01', '2020-09-30'];
+        timeArr = [ year+'-07-01', year+'-09-30'];
         break;
       case 4:
-        timeArr = [ '2020-10-01', '2020-12-31'];
+        timeArr = [ year+'-10-01', year+'-12-31'];
         break;
       default:
         break;
