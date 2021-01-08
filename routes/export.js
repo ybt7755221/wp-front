@@ -113,14 +113,6 @@ router.get('/priWeekly', async function(req, res, next){
                   }
                 wList[plist[jkey.project_id]].push(jkey)
               }
-              console.log(wList);
-            //   workJson.data.forEach((item)=>{
-            //       const arr = wList[plist[item['project_id']]]
-            //       if (Object.prototype.toString.call(arr) !== '[object Array]') {
-            //           wList[plist[item['project_id']]] = []
-            //       }
-            //       wList[plist[item['project_id']]].push(item)
-            //   })
               res.render('export/weekly',{
                   userinfo : req.session.userInfo,
                   defWeek: defWeek,
@@ -199,19 +191,21 @@ router.get('/proWeekly', async function(req,res, next){
                   list : null
               })
           }else{
-              var wList = {}
-              workJson.data.forEach((item)=>{
-                  const arr = wList[workTypeList[item['work_type']]]
-                  if (Object.prototype.toString.call(arr) !== '[object Array]') {
-                      wList[workTypeList[item['work_type']]] = []
-                  }
-                  wList[workTypeList[item['work_type']]].push(item)
-              })
-              res.render('export/proWeekly',{
-                  userinfo : req.session.userInfo,
-                  defWeek: defWeek,
-                  list : wList
-              })
+            var wList = {}
+            let frList = etools.uniq_list(workJson.data)
+            for(let item in frList) {
+              let jkey = frList[item]
+              const arr = wList[plist[jkey.work_type]]
+                if (Object.prototype.toString.call(arr) !== '[object Array]') {
+                  wList[plist[jkey.work_type]] = []
+                }
+              wList[plist[jkey.work_type]].push(jkey)
+            }
+            res.render('export/proWeekly',{
+                userinfo : req.session.userInfo,
+                defWeek: defWeek,
+                list : wList
+            })
           }
         }else{
           res.send(workJson.msg)
@@ -244,13 +238,15 @@ router.get('/quarter', async (req, res, next)=>{
               })
           }else{
               var wList = {}
-              workJson.data.forEach((item)=>{
-                  const arr = wList[plist[item['project_id']]]
+              let frList = etools.uniq_list(workJson.data)
+              for(let item in frList) {
+                let jkey = frList[item]
+                const arr = wList[plist[jkey.project_id]]
                   if (Object.prototype.toString.call(arr) !== '[object Array]') {
-                      wList[plist[item['project_id']]] = []
+                    wList[plist[jkey.project_id]] = []
                   }
-                  wList[plist[item['project_id']]].push(item)
-              })
+                wList[plist[jkey.project_id]].push(jkey)
+              }
               res.render('export/quarter',{
                   userinfo : req.session.userInfo,
                   defQuarter: quater,
